@@ -81,9 +81,32 @@ public class Main {
 		output = txtInsrt;
 		
 		for (int i = 0; i < texteLen; i++) {
-			output += "'"+texte.get(i)+"'";
 			
-			System.out.println("length="+texte.get(i).length());
+			int tlen = texte.get(i).length();
+			
+			
+			System.out.println("length="+tlen);
+			
+			if (tlen > 3700) {
+				// to_clob einbauen
+				
+				System.out.println("wie oft: "+(int)Math.ceil(tlen/3700));
+				output += "to_clob('";
+				for (int j = 1; j <= (int)Math.ceil(tlen/3700); j++) {
+					if (j==1) {
+						output += texte.get(i).substring(0, j*3700)+"')||to_clob('";
+					} else {
+						//if (j < (int)Math.ceil(tlen/3700))
+							output += texte.get(i).substring((j-1)*3700-1, j*3700)+"')||to_clob('";
+						//else
+						//	output += texte.get(i).substring(j*3700-1);
+					}
+				}
+				output += "')";
+				
+			} else {
+				output += "'"+texte.get(i)+"'";
+			}
 			
 			if (i < texteLen-1) {
 				output += ", ";
