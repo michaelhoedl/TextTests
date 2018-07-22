@@ -12,7 +12,7 @@ public class Main {
 		Main m = new Main();
 		String o = m.bearbeiteText(txt);
 		
-		//System.out.println("o="+o);
+		System.out.println("o len="+o.length());
 		
 	}
 	
